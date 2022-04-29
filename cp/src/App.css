@@ -1,38 +1,67 @@
 .App {
-  text-align: center;
+  background-color: gray;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.App header {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
 }
-
-.App-link {
-  color: #61dafb;
+.Board {
+  border: 25px solid chocolate;
+  margin: 20px;
+  border-spacing: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+[square-color='white'] {
+  background-color: white;
+}
+[square-color='black'] {
+  background-color: black;
+}
+.Board tr td {
+  height: 10vh;
+  width: 10vh;
+  color: pink;
+  text-align: center;
+  vertical-align: middle;
+}
+.piece {
+  font-size: 9vh;
+}
+[piece='white-rook']::before {
+  content: '\2656';
+}
+[piece='black-rook']::before {
+  content: '\265C';
+}
+[piece='white-knight']::before {
+  content: '\2658';
+}
+[piece='black-knight']::before {
+  content: '\265E';
+}
+[piece='white-bishop']::before {
+  content: '\2657';
+}
+[piece='black-bishop']::before {
+  content: '\265D';
+}
+[piece='white-queen']::before {
+  content: '\2655';
+}
+[piece='black-queen']::before {
+  content: '\265B';
+}
+[piece='white-king']::before {
+  content: '\2654';
+}
+[piece='black-king']::before {
+  content: '\265A';
+}
+[piece='white-pawn']::before {
+  content: '\2659';
+}
+[piece='black-pawn']::before {
+  content: '\265F';
 }

@@ -1,22 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {useState} from 'react';
+import Board from './board';
+import initialRows from './initialRows';
+import Pieces from './pieces';
 function App() {
+  const [rows, setRows] = useState(initialRows);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className='App'>
+      <header>
+        <div>
+          <Board rows={rows}></Board>
+        </div>
+        <div>
+          <Pieces></Pieces>
+        </div>
       </header>
     </div>
   );
