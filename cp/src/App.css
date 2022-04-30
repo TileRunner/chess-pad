@@ -1,67 +1,139 @@
+:root {
+  --borderColor: chocolate;
+  --white-square-color: white;
+  --black-square-color: darkgreen;
+  --white-piece-color: #BFC8EC;
+  --black-piece-color: #000000;
+}
 .App {
   background-color: gray;
+  text-align: center;
 }
 .App header {
   min-height: 100vh;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
 }
-.Board {
-  border: 25px solid chocolate;
+
+.optionsDiv {
+  margin-left: 1vw;
+  margin-top: 1vh;
+  background-color: var(--black-square-color);
+  color: white;
+  width: fit-content;
+  padding: 2px 3px;
+  border: 25px solid var(--borderColor);
+  text-align: left;
+}
+.optionsRadio {
+  line-height: 24px;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.optionsRadio label {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  /* 16px of the radio circle and 6px between it and text*/
+  padding-left: 22px;
+}
+.optionsRadio label::before,
+.optionsRadio label::after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+}
+/* The circle */
+.optionsRadio label::before {
+  height: 16px;
+  width: 16px;
+  border: 2px solid var(--white-square-color);
+  border-radius: 50%;
+  background-color: var(--black-square-color);
+  left: 0px;
+  top: 3px;
+}
+/* The circle filler (<div className="optionsRadio On"> ... use <span> instead of <div> to make them side by side) */
+.optionsRadio.On label::before {
+  background-color: var(--white-square-color);
+}
+/* The label text */
+.optionsRadio label {
+  font-size: calc(6px + 2vw);
+  margin-bottom: 2vw; /* make room for bigger fonts so they don't overlap from row to row */
+}
+
+
+.board {
+  border: 25px solid var(--borderColor);
   margin: 20px;
   border-spacing: 0;
 }
 [square-color='white'] {
-  background-color: white;
+  background-color: var(--white-square-color);
 }
 [square-color='black'] {
-  background-color: black;
+  background-color: var(--black-square-color);
 }
-.Board tr td {
+.board tr td {
   height: 10vh;
   width: 10vh;
-  color: pink;
   text-align: center;
   vertical-align: middle;
+  font-size: 7vh;
 }
 .piece {
   font-size: 9vh;
 }
 [piece='white-rook']::before {
   content: '\2656';
+  color: var(--white-piece-color);
 }
 [piece='black-rook']::before {
   content: '\265C';
+  color: var(--black-piece-color);
 }
 [piece='white-knight']::before {
   content: '\2658';
+  color: var(--white-piece-color);
 }
 [piece='black-knight']::before {
   content: '\265E';
+  color: var(--black-piece-color);
 }
 [piece='white-bishop']::before {
   content: '\2657';
+  color: var(--white-piece-color);
 }
 [piece='black-bishop']::before {
   content: '\265D';
+  color: var(--black-piece-color);
 }
 [piece='white-queen']::before {
   content: '\2655';
+  color: var(--white-piece-color);
 }
 [piece='black-queen']::before {
   content: '\265B';
+  color: var(--black-piece-color);
 }
 [piece='white-king']::before {
   content: '\2654';
+  color: var(--white-piece-color);
 }
 [piece='black-king']::before {
   content: '\265A';
+  color: var(--black-piece-color);
 }
 [piece='white-pawn']::before {
   content: '\2659';
+  color: var(--white-piece-color);
 }
 [piece='black-pawn']::before {
   content: '\265F';
+  color: var(--black-piece-color);
 }

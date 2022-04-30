@@ -1,31 +1,32 @@
-const Pieces = () => {
+const Pieces = ({setPiece}) => {
     return (
         <div>
-            <table className="piece">
+            <h1>Pieces</h1>
+            <table className="piece board">
                 <tbody>
-                <tr>
-                    <td piece='white-rook'></td>
-                    <td piece='black-rook'></td>
-                </tr>
                     <tr>
-                        <td piece='white-knight'></td>
-                        <td piece='black-knight'></td>
+                        <td square-color='white' piece='white-rook' onClick={() => {setPiece('white-rook');}}></td>
+                        <td square-color='black' piece='black-rook' onClick={() => {setPiece('black-rook');}}></td>
                     </tr>
                     <tr>
-                        <td piece='white-bishop'></td>
-                        <td piece='black-bishop'></td>
+                        <td square-color='black' piece='white-knight' onClick={() => {setPiece('white-knight');}}></td>
+                        <td square-color='white' piece='black-knight' onClick={() => {setPiece('black-knight');}}></td>
                     </tr>
                     <tr>
-                        <td piece='white-queen'></td>
-                        <td piece='black-queen'></td>
+                        <td square-color='white' piece='white-bishop' onClick={() => {setPiece('white-bishop');}}></td>
+                        <td square-color='black' piece='black-bishop' onClick={() => {setPiece('black-bishop');}}></td>
                     </tr>
                     <tr>
-                        <td piece='white-king'></td>
-                        <td piece='black-king'></td>
+                        <td square-color='black' piece='white-queen' onClick={() => {setPiece('white-queen');}}></td>
+                        <td square-color='white' piece='black-queen' onClick={() => {setPiece('black-queen');}}></td>
                     </tr>
                     <tr>
-                        <td piece='white-pawn'></td>
-                        <td piece='black-pawn'></td>
+                        <td square-color='white' piece='white-king' onClick={() => {setPiece('white-king');}}></td>
+                        <td square-color='black' piece='black-king' onClick={() => {setPiece('black-king');}}></td>
+                    </tr>
+                    <tr>
+                        <td square-color='black' piece='white-pawn' onClick={() => {setPiece('white-pawn');}}></td>
+                        <td square-color='white' piece='black-pawn' onClick={() => {setPiece('black-pawn');}}></td>
                     </tr>
                 </tbody>
             </table>
