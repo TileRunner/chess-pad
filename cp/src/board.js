@@ -1,6 +1,6 @@
-import {useState} from 'react';
-const Board = ({rows=[],setRows,piece,setPiece,mode='',whiteup=true}) => {
-    const [moveStarted, setMoveStarted] = useState(false);
+import { useState } from "react";
+const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
+    const [fromPos, setFromPos] = useState({rowIndex:-1,columnIndex:-1});
     const EdgeRow =() =>
         <tr>
             <td className='edgeCorner'></td>
@@ -46,10 +46,16 @@ const Board = ({rows=[],setRows,piece,setPiece,mode='',whiteup=true}) => {
                                                 setMoveStarted(false);
                                                 setPiece('');
                                                 newrows[rindex].columns[cindex].piece = piece;
+                                                if (rindex !== fromPos.rowIndex || cindex !== fromPos.columnIndex) {
+                                                    let newSavePositions = JSON.parse(JSON.stringify(savedPositions));
+                                                    newSavePositions.push(newrows);
+                                                    setSavedPositions(newSavePositions);    
+                                                }
                                             } else {
                                                 if (newrows[rindex].columns[cindex].piece !== '') {
                                                     setMoveStarted(true);
                                                     setPiece(newrows[rindex].columns[cindex].piece);
+                                                    setFromPos({rowIndex:rindex, columnIndex:cindex});
                                                     newrows[rindex].columns[cindex].piece = '';
                                                 }
                                             }

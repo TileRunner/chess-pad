@@ -1,9 +1,9 @@
 :root {
   --borderColor: chocolate;
-  --white-square-color: white;
-  --black-square-color: darkgreen;
-  --white-piece-color: #BFC8EC;
-  --black-piece-color: #000000;
+  --white-square-color: #BBBBBB;
+  --black-square-color: green;
+  --white-piece-color: white;
+  --black-piece-color: black;
 }
 .App {
   background-color: gray;
