@@ -9,16 +9,17 @@ function App() {
   const [piece, setPiece] = useState('');
   const [mode, setMode] = useState('Setup');
   const [whiteup, setWhiteup] = useState(true);
+  const [startPosition, setStartPosition] = useState([]);
   return (
     <div className='App'>
       <header>
-        <Options mode={mode} setMode={setMode} whiteup={whiteup} setWhiteup={setWhiteup}></Options>
+        <Options mode={mode} setMode={setMode} whiteup={whiteup} setWhiteup={setWhiteup} rows={rows} setRows={setRows} startPosition={startPosition} setStartPosition={setStartPosition}></Options>
         <div>
           <Board rows={rows} setRows={setRows} piece={piece} setPiece={setPiece} mode={mode} whiteup={whiteup}></Board>
         </div>
-        <div>
+        {mode === 'Setup' && <div>
           <Pieces setPiece={setPiece}></Pieces>
-        </div>
+        </div>}
       </header>
     </div>
   );

@@ -24,7 +24,6 @@
   color: white;
   width: fit-content;
   padding: 2px 3px;
-  border: 25px solid var(--borderColor);
   text-align: left;
 }
 .optionsRadio {
@@ -67,10 +66,22 @@
   margin-bottom: 2vw; /* make room for bigger fonts so they don't overlap from row to row */
 }
 
-
+.edgeCorner {
+  width: 25px;
+  height: 25px;
+  background-color: var(--borderColor);
+}
+.edgeColumnHeader {
+  font-size: 12px;
+  font-weight: bold;
+  background-color: var(--borderColor);
+}
+.edgeRowHeader {
+  font-size: 12px;
+  font-weight: bold;
+  background-color: var(--borderColor);
+}
 .board {
-  border: 25px solid var(--borderColor);
-  margin: 20px;
   border-spacing: 0;
 }
 [square-color='white'] {
@@ -80,10 +91,12 @@
   background-color: var(--black-square-color);
 }
 .board tr td {
-  height: 10vh;
-  width: 10vh;
   text-align: center;
   vertical-align: middle;
+}
+.square {
+  height: 10vh;
+  width: 10vh;
   font-size: 7vh;
 }
 .piece {
@@ -136,4 +149,10 @@
 [piece='black-pawn']::before {
   content: '\265F';
   color: var(--black-piece-color);
+}
+button {
+  margin-left: 5px;
+  border: 2px solid var(--borderColor);
+  border-radius: 15px;
+  font-size: larger;
 }
