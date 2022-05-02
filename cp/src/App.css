@@ -62,8 +62,8 @@
 }
 /* The label text */
 .optionsRadio label {
-  font-size: calc(6px + 2vw);
-  margin-bottom: 2vw; /* make room for bigger fonts so they don't overlap from row to row */
+  font-size: 24px;
+  margin-bottom: 1vw;
 }
 
 .edgeCorner {
@@ -101,6 +101,10 @@
 }
 .piece {
   font-size: 9vh;
+}
+.piece tbody tr td {
+  height: 10vh;
+  width: 10vh;
 }
 [piece='white-rook']::before {
   content: '\2656';
@@ -146,10 +150,26 @@
   content: '\2659';
   color: var(--white-piece-color);
 }
+/* [piece='white-pawn'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhitePawn.png');
+  background-position: center;
+}
+[piece='white-pawn'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhitePawn.png');
+  background-position: center;
+} */
 [piece='black-pawn']::before {
   content: '\265F';
   color: var(--black-piece-color);
 }
+/* [piece='black-pawn'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackPawn.png');
+  background-position: center;
+}
+[piece='black-pawn'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackPawn.png');
+  background-position: center;
+} */
 button {
   margin-left: 5px;
   border: 2px solid var(--borderColor);

@@ -16,16 +16,17 @@ const Options = ({
                     <div>
                         <h1>Setup Mode</h1>
                         <p>Click a piece from the Pieces to select.</p>
-                        <p>Click a square on the Board to place it there.</p>
-                        <p>Once the Board matches your chess puzzle, Click
-                            <button onClick={() => {
-                                setMode('Solve');
-                                setStartPosition(rows);
-                                setSavedPositions([rows]);
-                                setMoveStarted(false);
-                                }}>Start Solving</button>
-                        </p>
-                        <p>To put pieces in a standard game start position, Click
+                        <p>Click each desired square on the Board to place it there.</p>
+                        <h1>You Are Playing As:</h1>
+                        <div className={whiteup ? 'optionsRadio On' : 'optionsRadio'}
+                            onClick={() => {setWhiteup(true);}}>
+                            <label>White</label>
+                        </div>
+                        <div className={!whiteup ? 'optionsRadio On' : 'optionsRadio'}
+                            onClick={() => {setWhiteup(false);}}>
+                            <label>Black</label>
+                        </div>
+                        <p>
                             <button onClick={() => {
                                 let newrows=standardGameStartRows(whiteup);
                                 setRows(newrows);
@@ -33,15 +34,14 @@ const Options = ({
                                 Standard Game Start Position
                             </button>
                         </p>
-                        <h1>Orientation</h1>
-                        <div className={whiteup ? 'optionsRadio On' : 'optionsRadio'}
-                            onClick={() => {setWhiteup(true);}}>
-                            <label>White playing upwards</label>
-                        </div>
-                        <div className={!whiteup ? 'optionsRadio On' : 'optionsRadio'}
-                            onClick={() => {setWhiteup(false);}}>
-                            <label>Black playing upwards</label>
-                        </div>
+                        <p>
+                            <button onClick={() => {
+                                setMode('Solve');
+                                setStartPosition(rows);
+                                setSavedPositions([rows]);
+                                setMoveStarted(false);
+                                }}>Start Solving</button>
+                        </p>
                     </div>
                 :
                     <div>

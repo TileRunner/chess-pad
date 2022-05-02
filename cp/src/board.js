@@ -30,7 +30,7 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
                                     square-color=
                                     {(rindex % 2 === 0 && cindex % 2 === 0) ||
                                      (rindex % 2 === 1 && cindex % 2 === 1)
-                                     ? whiteup ? 'white' : 'black' : whiteup ? 'black' : 'white'
+                                     ? 'white' : 'black'
                                     }
                                     piece={column.piece}
                                     onClick={() => {
@@ -43,13 +43,26 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
                                             }
                                         } else {
                                             if (moveStarted) {
-                                                setMoveStarted(false);
-                                                setPiece('');
-                                                newrows[rindex].columns[cindex].piece = piece;
-                                                if (rindex !== fromPos.rowIndex || cindex !== fromPos.columnIndex) {
-                                                    let newSavePositions = JSON.parse(JSON.stringify(savedPositions));
-                                                    newSavePositions.push(newrows);
-                                                    setSavedPositions(newSavePositions);    
+                                                // Detect if they just clicked a different piece of the same colour
+                                                if (
+                                                   (newrows[rindex].columns[cindex].piece[0] === 'w' &&
+                                                    newrows[fromPos.rowIndex].columns[fromPos.columnIndex].piece[0] === 'w')
+                                                    ||
+                                                    (newrows[rindex].columns[cindex].piece[0] === 'b' &&
+                                                    newrows[fromPos.rowIndex].columns[fromPos.columnIndex].piece[0] === 'b')
+                                                ) {
+                                                    setPiece(newrows[rindex].columns[cindex].piece);
+                                                    setFromPos({rowIndex:rindex, columnIndex:cindex});
+                                                    newrows = JSON.parse(JSON.stringify(savedPositions[savedPositions.length - 1]));
+                                                } else {
+                                                    setMoveStarted(false);
+                                                    setPiece('');
+                                                    newrows[rindex].columns[cindex].piece = piece;
+                                                    if (rindex !== fromPos.rowIndex || cindex !== fromPos.columnIndex) {
+                                                        let newSavePositions = JSON.parse(JSON.stringify(savedPositions));
+                                                        newSavePositions.push(newrows);
+                                                        setSavedPositions(newSavePositions);    
+                                                    }
                                                 }
                                             } else {
                                                 if (newrows[rindex].columns[cindex].piece !== '') {

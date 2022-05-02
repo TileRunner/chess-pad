@@ -28,6 +28,10 @@ const Pieces = ({setPiece}) => {
                         <td square-color='black' piece='white-pawn' onClick={() => {setPiece('white-pawn');}}></td>
                         <td square-color='white' piece='black-pawn' onClick={() => {setPiece('black-pawn');}}></td>
                     </tr>
+                    <tr>
+                        <td square-color='white' piece='none' onClick={() => {setPiece('');}}></td>
+                        <td square-color='black' piece='none' onClick={() => {setPiece('');}}></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
