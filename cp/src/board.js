@@ -190,6 +190,17 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
             newrows[7].columns[4].piece = 'black-rook';
             newrows[7].columns[3].piece = '';
         }
+        // Detect en passant
+        else if ((fromInfo.piece === 'white-pawn' || fromInfo.piece === 'black-pawn') &&
+            Math.abs(fromInfo.columnIndex - cindex) === 1 &&
+            Math.abs(fromInfo.rowIndex - rindex) === 1 &&
+            clickedPiece === '' &&
+            rows[fromInfo.rowIndex].columns[cindex].piece === (fromInfo.piece === 'white-pawn' ? 'black-pawn' : 'white-pawn'))
+        {
+            newrows[fromInfo.rowIndex].columns[cindex].piece = '';
+            newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
+            newrows[rindex].columns[cindex].piece = fromInfo.piece;
+        }
         else {
             newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
             newrows[rindex].columns[cindex].piece = fromInfo.piece;
