@@ -1,6 +1,6 @@
 import { useState } from "react";
 const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
-    const [fromPos, setFromPos] = useState({rowIndex:-1,columnIndex:-1});
+    const [fromInfo, setFromInfo] = useState({rowIndex:-1,columnIndex:-1,piece:''});
     const EdgeRow =() =>
         <tr>
             <td className='edgeCorner'></td>
@@ -32,48 +32,115 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
                                      (rindex % 2 === 1 && cindex % 2 === 1)
                                      ? 'white' : 'black'
                                     }
+                                    square-selected={mode === 'Solve' && moveStarted && rindex === fromInfo.rowIndex && cindex === fromInfo.columnIndex ? 'Y' : 'N'}
                                     piece={column.piece}
                                     onClick={() => {
                                         let newrows = JSON.parse(JSON.stringify(rows));
+                                        let clickedPiece = rows[rindex].columns[cindex].piece;
                                         if (mode === 'Setup') {
-                                            if (newrows[rindex].columns[cindex].piece === piece) {
+                                            // If they click a piece on the board that is the selected piece, empty the square
+                                            if (clickedPiece === piece) {
                                                 newrows[rindex].columns[cindex].piece = '';
-                                            } else {
+                                            } else { // Otherwise put the selected piece on that square
                                                 newrows[rindex].columns[cindex].piece =  piece;
                                             }
-                                        } else {
-                                            if (moveStarted) {
-                                                // Detect if they just clicked a different piece of the same colour
-                                                if (
-                                                   (newrows[rindex].columns[cindex].piece[0] === 'w' &&
-                                                    newrows[fromPos.rowIndex].columns[fromPos.columnIndex].piece[0] === 'w')
-                                                    ||
-                                                    (newrows[rindex].columns[cindex].piece[0] === 'b' &&
-                                                    newrows[fromPos.rowIndex].columns[fromPos.columnIndex].piece[0] === 'b')
-                                                ) {
-                                                    setPiece(newrows[rindex].columns[cindex].piece);
-                                                    setFromPos({rowIndex:rindex, columnIndex:cindex});
-                                                    newrows = JSON.parse(JSON.stringify(savedPositions[savedPositions.length - 1]));
-                                                } else {
+                                            setRows(newrows);
+                                        } else { // mode === 'Solve'
+                                            if (!moveStarted) {
+                                                // Must click a piece to start a move. Ignore click on empty square.
+                                                if (clickedPiece !== '') {
+                                                    setMoveStarted(true);
+                                                    setFromInfo({rowIndex:rindex, columnIndex:cindex, piece:clickedPiece});
+                                                }
+                                            } else { // moveStarted
+                                                // Detect if they re-clicked the same square
+                                                if (rindex === fromInfo.rowIndex && cindex === fromInfo.columnIndex) {
+                                                    // Clicking same square again cancels move start
                                                     setMoveStarted(false);
-                                                    setPiece('');
-                                                    newrows[rindex].columns[cindex].piece = piece;
-                                                    if (rindex !== fromPos.rowIndex || cindex !== fromPos.columnIndex) {
+                                                } else {
+                                                    // Detect if they just clicked a different piece of the same colour
+                                                    if ( (clickedPiece[0] === 'w' && fromInfo.piece[0] === 'w')
+                                                    || (clickedPiece[0] === 'b' && fromInfo.piece[0] === 'b') )
+                                                    {
+                                                        // They changed their mind which piece to move
+                                                        // Reflect the newly selected from info
+                                                        setFromInfo({rowIndex:rindex, columnIndex:cindex, piece: clickedPiece});
+                                                    } else {
+                                                        // They decided where to put the piece, end the move
+                                                        // Detect king side castle for white with white playing up
+                                                        if (whiteup &&
+                                                            fromInfo.piece === 'white-king' &&
+                                                            fromInfo.rowIndex === 7 &&
+                                                            fromInfo.columnIndex === 4 &&
+                                                            rindex === 7 &&
+                                                            cindex === 6 &&
+                                                            rows[7].columns[7].piece === 'white-rook' &&
+                                                            rows[7].columns[5].piece === '') {
+                                                                newrows[7].columns[4].piece = '';
+                                                                newrows[7].columns[5].piece = 'white-rook';
+                                                                newrows[7].columns[6].piece = 'white-king';
+                                                                newrows[7].columns[7].piece = '';
+                                                        // Detect king side castle for black with white playing up
+                                                        } else if (whiteup &&
+                                                            fromInfo.piece === 'black-king' &&
+                                                            fromInfo.rowIndex === 0 &&
+                                                            fromInfo.columnIndex === 4 &&
+                                                            rindex === 0 &&
+                                                            cindex === 6 &&
+                                                            rows[0].columns[7].piece === 'black-rook' &&
+                                                            rows[0].columns[5].piece === ''
+                                                        ) {
+                                                            newrows[0].columns[4].piece = '';
+                                                            newrows[0].columns[5].piece = 'black-rook';
+                                                            newrows[0].columns[6].piece = 'black-king';
+                                                            newrows[0].columns[7].piece = '';
+                                                        // Detect queen side castle for white with white playing up
+                                                        } else if (whiteup &&
+                                                            fromInfo.piece === 'white-king' &&
+                                                            fromInfo.rowIndex === 7 &&
+                                                            fromInfo.columnIndex === 4 &&
+                                                            rindex === 7 &&
+                                                            cindex === 2 &&
+                                                            rows[7].columns[0].piece === 'white-rook' &&
+                                                            rows[7].columns[1].piece === '' &&
+                                                            rows[7].columns[2].piece === '' &&
+                                                            rows[7].columns[3].piece === ''
+                                                        ) {
+                                                            newrows[7].columns[0].piece = '';
+                                                            newrows[7].columns[1].piece = '';
+                                                            newrows[7].columns[2].piece = 'white-king';
+                                                            newrows[7].columns[3].piece = 'white-rook';
+                                                            newrows[7].columns[4].piece = '';
+                                                        // Detect queen side castle for black with white playing up
+                                                        } else if (whiteup &&
+                                                            fromInfo.piece === 'black-king' &&
+                                                            fromInfo.rowIndex === 0 &&
+                                                            fromInfo.columnIndex === 4 &&
+                                                            rindex === 0 &&
+                                                            cindex === 2 &&
+                                                            rows[0].columns[0].piece === 'black-rook' &&
+                                                            rows[0].columns[1].piece === '' &&
+                                                            rows[0].columns[2].piece === '' &&
+                                                            rows[0].columns[3].piece === ''
+                                                        ) {
+                                                            newrows[0].columns[0].piece = '';
+                                                            newrows[0].columns[1].piece = '';
+                                                            newrows[0].columns[2].piece = 'black-king';
+                                                            newrows[0].columns[3].piece = 'black-rook';
+                                                            newrows[0].columns[4].piece = '';
+                                                        } else {
+                                                            newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
+                                                            newrows[rindex].columns[cindex].piece = fromInfo.piece;
+                                                        }
                                                         let newSavePositions = JSON.parse(JSON.stringify(savedPositions));
                                                         newSavePositions.push(newrows);
-                                                        setSavedPositions(newSavePositions);    
+                                                        setMoveStarted(false);
+                                                        setSavedPositions(newSavePositions);
+                                                        setRows(newrows);
                                                     }
-                                                }
-                                            } else {
-                                                if (newrows[rindex].columns[cindex].piece !== '') {
-                                                    setMoveStarted(true);
-                                                    setPiece(newrows[rindex].columns[cindex].piece);
-                                                    setFromPos({rowIndex:rindex, columnIndex:cindex});
-                                                    newrows[rindex].columns[cindex].piece = '';
                                                 }
                                             }
                                         }
-                                        setRows(newrows);
                                     }}>
                                 </td>
                             ))}

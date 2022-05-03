@@ -99,6 +99,9 @@
   width: 10vh;
   font-size: 7vh;
 }
+[square-selected='Y'] {
+  opacity: 50%;
+}
 .piece {
   font-size: 9vh;
 }
