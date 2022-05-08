@@ -42,7 +42,7 @@ function App() {
           setMoveStarted={setMoveStarted}
           >
         </Board>
-        {mode === 'Setup' && <Pieces setPiece={setPiece}></Pieces>}
+        {mode === 'Setup' && <Pieces piece={piece} setPiece={setPiece}></Pieces>}
       </header>
     </div>
   );

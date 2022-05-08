@@ -1,6 +1,11 @@
 import { useState } from "react";
+import validateMove from "./validate";
+import handleCastling from "./castle";
+
 const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
     const [fromInfo, setFromInfo] = useState({rowIndex:-1,columnIndex:-1,piece:''});
+    const [promotingPawn, setPromotingPawn] = useState(false);
+    const [toInfo, setToInfo] = useState({rowIndex:-1,columnIndex:-1,color:''});
     const EdgeRow =() =>
         <tr>
             <td className='edgeCorner'></td>
@@ -36,7 +41,7 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
                 setFromInfo({rowIndex:rindex, columnIndex:cindex, piece:clickedPiece});
             }
             return;
-        } 
+        }
         // move was started
         // Detect if they re-clicked the same square
         if (rindex === fromInfo.rowIndex && cindex === fromInfo.columnIndex) {
@@ -53,142 +58,9 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
             setFromInfo({rowIndex:rindex, columnIndex:cindex, piece: clickedPiece});
             return;
         }
-        // They decided where to put the piece, end the move
-        // Detect king side castle for white with white playing up
-        if (whiteup &&
-            fromInfo.piece === 'white-king' &&
-            fromInfo.rowIndex === 7 &&
-            fromInfo.columnIndex === 4 &&
-            rindex === 7 &&
-            cindex === 6 &&
-            rows[7].columns[7].piece === 'white-rook' &&
-            rows[7].columns[6].piece === '' &&
-            rows[7].columns[5].piece === '')
-        {
-                newrows[7].columns[4].piece = '';
-                newrows[7].columns[5].piece = 'white-rook';
-                newrows[7].columns[6].piece = 'white-king';
-                newrows[7].columns[7].piece = '';
-        } 
-        // Detect king side castle for black with white playing up
-        else if (whiteup &&
-            fromInfo.piece === 'black-king' &&
-            fromInfo.rowIndex === 0 &&
-            fromInfo.columnIndex === 4 &&
-            rindex === 0 &&
-            cindex === 6 &&
-            rows[0].columns[7].piece === 'black-rook' &&
-            rows[0].columns[6].piece === '' &&
-            rows[0].columns[5].piece === '')
-        {
-            newrows[0].columns[4].piece = '';
-            newrows[0].columns[5].piece = 'black-rook';
-            newrows[0].columns[6].piece = 'black-king';
-            newrows[0].columns[7].piece = '';
-        }
-        // Detect queen side castle for white with white playing up
-        else if (whiteup &&
-            fromInfo.piece === 'white-king' &&
-            fromInfo.rowIndex === 7 &&
-            fromInfo.columnIndex === 4 &&
-            rindex === 7 &&
-            cindex === 2 &&
-            rows[7].columns[0].piece === 'white-rook' &&
-            rows[7].columns[1].piece === '' &&
-            rows[7].columns[2].piece === '' &&
-            rows[7].columns[3].piece === '')
-        {
-            newrows[7].columns[0].piece = '';
-            newrows[7].columns[1].piece = '';
-            newrows[7].columns[2].piece = 'white-king';
-            newrows[7].columns[3].piece = 'white-rook';
-            newrows[7].columns[4].piece = '';
-        }
-        // Detect queen side castle for black with white playing up
-        else if (whiteup &&
-            fromInfo.piece === 'black-king' &&
-            fromInfo.rowIndex === 0 &&
-            fromInfo.columnIndex === 4 &&
-            rindex === 0 &&
-            cindex === 2 &&
-            rows[0].columns[0].piece === 'black-rook' &&
-            rows[0].columns[1].piece === '' &&
-            rows[0].columns[2].piece === '' &&
-            rows[0].columns[3].piece === '')
-        {
-            newrows[0].columns[0].piece = '';
-            newrows[0].columns[1].piece = '';
-            newrows[0].columns[2].piece = 'black-king';
-            newrows[0].columns[3].piece = 'black-rook';
-            newrows[0].columns[4].piece = '';
-        }
-        // Detect king side castle for white with black playing up
-        else if (!whiteup &&
-            fromInfo.piece === 'white-king' &&
-            fromInfo.rowIndex === 0 &&
-            fromInfo.columnIndex === 3 &&
-            rindex === 0 &&
-            cindex === 1 &&
-            rows[0].columns[0].piece === 'white-rook' &&
-            rows[0].columns[1].piece === '' &&
-            rows[0].columns[2].piece === '')
-        {
-            newrows[0].columns[0].piece = '';
-            newrows[0].columns[1].piece = 'white-king';
-            newrows[0].columns[2].piece = 'white-rook';
-            newrows[0].columns[3].piece = '';
-        }
-        // Detect king side castle for black with black playing up
-        else if (!whiteup &&
-            fromInfo.piece === 'black-king' &&
-            fromInfo.rowIndex === 7 &&
-            fromInfo.columnIndex === 3 &&
-            rindex === 7 &&
-            cindex === 1 &&
-            rows[7].columns[0].piece === 'black-rook' &&
-            rows[7].columns[1].piece === '' &&
-            rows[7].columns[2].piece === '')
-        {
-            newrows[7].columns[0].piece = '';
-            newrows[7].columns[1].piece = 'black-king';
-            newrows[7].columns[2].piece = 'black-rook';
-            newrows[7].columns[3].piece = '';
-        }
-        // Detect queen side castle for white with black playing up
-        else if (!whiteup &&
-            fromInfo.piece === 'white-king' &&
-            fromInfo.rowIndex === 0 &&
-            fromInfo.columnIndex === 3 &&
-            rindex === 0 &&
-            cindex === 5 &&
-            rows[0].columns[7].piece === 'white-rook' &&
-            rows[0].columns[6].piece === '' &&
-            rows[0].columns[5].piece === '' &&
-            rows[0].columns[4].piece === '')
-        {
-            newrows[0].columns[7].piece = '';
-            newrows[0].columns[6].piece = '';
-            newrows[0].columns[5].piece = 'white-king';
-            newrows[0].columns[4].piece = 'white-rook';
-            newrows[0].columns[3].piece = '';
-        }
-        // Detect queen side castle for black with black playing up
-        else if (!whiteup &&
-            fromInfo.piece === 'black-king' &&
-            fromInfo.rowIndex === 7 &&
-            fromInfo.columnIndex === 3 &&
-            rindex === 7 &&
-            cindex === 5 &&
-            rows[7].columns[7].piece === 'black-rook' &&
-            rows[7].columns[6].piece === '' &&
-            rows[7].columns[5].piece === '' &&
-            rows[7].columns[4].piece === '')
-        {
-            newrows[7].columns[7].piece = '';
-            newrows[7].columns[6].piece = '';
-            newrows[7].columns[5].piece = 'black-king';
-            newrows[7].columns[4].piece = 'black-rook';
-            newrows[7].columns[3].piece = '';
+        let castle = handleCastling(rows, fromInfo, rindex, cindex, whiteup);
+        if (castle.castled) {
+            newrows = JSON.parse(JSON.stringify(castle.newrows));
         }
         // Detect en passant
         else if ((fromInfo.piece === 'white-pawn' || fromInfo.piece === 'black-pawn') &&
@@ -202,6 +74,12 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
             newrows[rindex].columns[cindex].piece = fromInfo.piece;
         }
         else {
+            // Check validity
+            let msg = validateMove(rows, fromInfo, rindex, cindex);
+            if (msg) {
+                alert(msg);
+                return;
+            }
             newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
             newrows[rindex].columns[cindex].piece = fromInfo.piece;
         }
@@ -210,11 +88,48 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
         setMoveStarted(false);
         setSavedPositions(newSavePositions);
         setRows(newrows);
+        let needToPromotePawn = (fromInfo.piece === 'white-pawn' || fromInfo.piece === 'black-pawn') && (rindex % 7 === 0);
+        if (needToPromotePawn) {
+            setPromotingPawn(true);
+            setToInfo({rowIndex: rindex, columnIndex: cindex, color: fromInfo.piece[0] === 'w' ? 'white' : 'black'});
+        }
     }
+
+    function promotePawn(targetPiece) {
+        let newrows = JSON.parse(JSON.stringify(rows));
+        newrows[toInfo.rowIndex].columns[toInfo.columnIndex].piece = targetPiece;
+        setRows(newrows);
+        setPromotingPawn(false);
+    }
+
+    const PromoteOptions =() => <div>
+        <h2>Pawn Promotion</h2>
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-rook' : 'black-rook');}}
+            piece={toInfo.color === 'white' ? 'white-rook' : 'black-rook'}
+            square-color='black'
+            className='promote'
+            ></button>
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-knight' : 'black-knight');}}
+            piece={toInfo.color === 'white' ? 'white-knight' : 'black-knight'}
+            square-color='white'
+            className='promote'
+            ></button>
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-bishop' : 'black-bishop');}}
+            piece={toInfo.color === 'white' ? 'white-bishop' : 'black-bishop'}
+            square-color='black'
+            className='promote'
+            ></button>
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-queen' : 'black-queen');}}
+            piece={toInfo.color === 'white' ? 'white-queen' : 'black-queen'}
+            square-color='white'
+            className='promote'
+            ></button>
+    </div>
 
     return (
         <div>
             <h1>Board</h1>
+            {promotingPawn && <PromoteOptions></PromoteOptions>}
             <table className="board">
                 <tbody>
                     <EdgeRow></EdgeRow>
@@ -231,7 +146,7 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
                                     }
                                     square-selected={mode === 'Solve' && moveStarted && rindex === fromInfo.rowIndex && cindex === fromInfo.columnIndex ? 'Y' : 'N'}
                                     piece={column.piece}
-                                    onClick={() => {handleSquareClick(rindex,cindex);}}>
+                                    onClick={() => {!promotingPawn && handleSquareClick(rindex,cindex);}}>
                                 </td>
                             ))}
                             <td className='edgeRowHeader'>{whiteup ? 8 - rindex : rindex + 1}</td>

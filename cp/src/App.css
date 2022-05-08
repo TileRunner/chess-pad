@@ -100,7 +100,8 @@
   font-size: 7vh;
 }
 [square-selected='Y'] {
-  opacity: 50%;
+  /* opacity: 50%; */
+  background-color: chocolate;
 }
 .piece {
   font-size: 9vh;
@@ -178,4 +179,7 @@ button {
   border: 2px solid var(--borderColor);
   border-radius: 15px;
   font-size: larger;
+}
+.promote {
+  font-size: 40px;
 }
