@@ -1,6 +1,7 @@
 import { useState } from "react";
 import validateMove from "./validate";
 import handleCastling from "./castle";
+import squareAttacked from "./squareAttacked";
 
 const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
     const [fromInfo, setFromInfo] = useState({rowIndex:-1,columnIndex:-1,piece:''});
@@ -60,6 +61,18 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
         }
         let castle = handleCastling(rows, fromInfo, rindex, cindex, whiteup);
         if (castle.castled) {
+            if (castle.fromCheck) {
+                alert('Cannot castle out of check');
+                return;
+            }
+            if (castle.thruCheck) {
+                alert('Cannot castle through check');
+                return;
+            }
+            if (castle.intoCheck) {
+                alert('Cannot castle into check');
+                return;
+            }
             newrows = JSON.parse(JSON.stringify(castle.newrows));
         }
         // Detect en passant
@@ -82,6 +95,23 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
             }
             newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
             newrows[rindex].columns[cindex].piece = fromInfo.piece;
+        }
+        // Did they move into check?
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                if (fromInfo.piece[0] === 'w' && newrows[r].columns[c].piece === 'white-king') {
+                    if (squareAttacked(newrows, whiteup, 'black', r, c)) {
+                        alert("You cannot move into check");
+                        return;
+                    }
+                }
+                if (fromInfo.piece[0] === 'b' && newrows[r].columns[c].piece === 'black-king') {
+                    if (squareAttacked(newrows, whiteup, 'white', r, c)) {
+                        alert("You cannot move into check");
+                        return;
+                    }
+                }
+            }
         }
         let newSavePositions = JSON.parse(JSON.stringify(savedPositions));
         newSavePositions.push(newrows);

@@ -60,28 +60,24 @@ function checkBishopMove(rows, fromInfo, rindex, cindex) {
     if (Math.abs(fromInfo.rowIndex - rindex) !== Math.abs(fromInfo.columnIndex - cindex)) {
         return "Bishops move in diagonal lines";
     }
-    let lowrow = fromInfo.rowIndex < rindex ? fromInfo.rowIndex + 1 : rindex + 1;
-    let highrow = fromInfo.rowIndex > rindex ? fromInfo.rowIndex - 1 : rindex - 1;
-    let ci = fromInfo.columnIndex < cindex ? fromInfo.columnIndex + 1 : cindex + 1;
-    for (let ri = lowrow; ri <= highrow; ri++) {
+    let rowdir = fromInfo.rowIndex < rindex ? 1 : -1;
+    let coldir = fromInfo.columnIndex < cindex ? 1 : -1;
+    for (let ri = fromInfo.rowIndex + rowdir, ci = fromInfo.columnIndex + coldir; ri !== rindex; ri+=rowdir, ci+=coldir) {
         if (rows[ri].columns[ci].piece !== '') {
             return "There is a piece in the way of your bishop move";
         }
-        ci++;
     }
 }
 
 function checkQueenMove(rows, fromInfo, rindex, cindex) {
     if (Math.abs(fromInfo.rowIndex - rindex) === Math.abs(fromInfo.columnIndex - cindex)) {
         // Moved like a bishop
-        let lowrow = fromInfo.rowIndex < rindex ? fromInfo.rowIndex + 1 : rindex + 1;
-        let highrow = fromInfo.rowIndex > rindex ? fromInfo.rowIndex - 1 : rindex - 1;
-        let ci = fromInfo.columnIndex < cindex ? fromInfo.columnIndex + 1 : cindex + 1;
-        for (let ri = lowrow; ri <= highrow; ri++) {
+        let rowdir = fromInfo.rowIndex < rindex ? 1 : -1;
+        let coldir = fromInfo.columnIndex < cindex ? 1 : -1;
+        for (let ri = fromInfo.rowIndex + rowdir, ci = fromInfo.columnIndex + coldir; ri !== rindex; ri+=rowdir, ci+=coldir) {
             if (rows[ri].columns[ci].piece !== '') {
                 return "There is a piece in the way of your queen move";
             }
-            ci++;
         }
     }
     else if (fromInfo.rowIndex === rindex || fromInfo.columnIndex === cindex) {
