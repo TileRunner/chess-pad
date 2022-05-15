@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/chess-pad/static/css/main.5e7a2113.css",
-    "main.js": "/chess-pad/static/js/main.b605c12a.js",
+    "main.js": "/chess-pad/static/js/main.702b9420.js",
     "static/js/787.48bf6126.chunk.js": "/chess-pad/static/js/787.48bf6126.chunk.js",
     "index.html": "/chess-pad/index.html",
     "main.5e7a2113.css.map": "/chess-pad/static/css/main.5e7a2113.css.map",
-    "main.b605c12a.js.map": "/chess-pad/static/js/main.b605c12a.js.map",
+    "main.702b9420.js.map": "/chess-pad/static/js/main.702b9420.js.map",
     "787.48bf6126.chunk.js.map": "/chess-pad/static/js/787.48bf6126.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5e7a2113.css",
-    "static/js/main.b605c12a.js"
+    "static/js/main.702b9420.js"
   ]
 }
