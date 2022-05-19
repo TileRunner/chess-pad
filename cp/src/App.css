@@ -84,11 +84,19 @@
 .board {
   border-spacing: 0;
 }
-[square-color='white'] {
+/* [square-color='white'] {
   background-color: var(--white-square-color);
+} */
+[piece=''][square-color='white'] {
+  background-image: url('../public/WhiteNoPiece.png');
+  background-position: center;
 }
-[square-color='black'] {
+/* [square-color='black'] {
   background-color: var(--black-square-color);
+} */
+[piece=''][square-color='black'] {
+  background-image: url('../public/BlackNoPiece.png');
+  background-position: center;
 }
 .board tr td {
   text-align: center;
@@ -100,8 +108,8 @@
   font-size: 7vh;
 }
 [square-selected='Y'] {
-  /* opacity: 50%; */
-  background-color: chocolate;
+  opacity: 50%;
+  /* background-color: chocolate; */
 }
 .piece {
   font-size: 9vh;
@@ -110,70 +118,150 @@
   height: 10vh;
   width: 10vh;
 }
-[piece='white-rook']::before {
+/* [piece='white-rook']::before {
   content: '\2656';
   color: var(--white-piece-color);
+} */
+[piece='white-rook'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhiteRook.png');
+  background-position: center;
 }
-[piece='black-rook']::before {
+[piece='white-rook'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhiteRook.png');
+  background-position: center;
+}
+/* [piece='black-rook']::before {
   content: '\265C';
   color: var(--black-piece-color);
+} */
+[piece='black-rook'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackRook.png');
+  background-position: center;
 }
-[piece='white-knight']::before {
+[piece='black-rook'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackRook.png');
+  background-position: center;
+}
+/* [piece='white-knight']::before {
   content: '\2658';
   color: var(--white-piece-color);
+} */
+[piece='white-knight'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhiteKnight.png');
+  background-position: center;
 }
-[piece='black-knight']::before {
+[piece='white-knight'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhiteKnight.png');
+  background-position: center;
+}
+/* [piece='black-knight']::before {
   content: '\265E';
   color: var(--black-piece-color);
+} */
+[piece='black-knight'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackKnight.png');
+  background-position: center;
 }
-[piece='white-bishop']::before {
+[piece='black-knight'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackKnight.png');
+  background-position: center;
+}
+/* [piece='white-bishop']::before {
   content: '\2657';
   color: var(--white-piece-color);
+} */
+[piece='white-bishop'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhiteBishop.png');
+  background-position: center;
 }
-[piece='black-bishop']::before {
+[piece='white-bishop'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhiteBishop.png');
+  background-position: center;
+}
+/* [piece='black-bishop']::before {
   content: '\265D';
   color: var(--black-piece-color);
+} */
+[piece='black-bishop'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackBishop.png');
+  background-position: center;
 }
-[piece='white-queen']::before {
+[piece='black-bishop'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackBishop.png');
+  background-position: center;
+}
+/* [piece='white-queen']::before {
   content: '\2655';
   color: var(--white-piece-color);
+} */
+[piece='white-queen'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhiteQueen.png');
+  background-position: center;
 }
-[piece='black-queen']::before {
+[piece='white-queen'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhiteQueen.png');
+  background-position: center;
+}
+/* [piece='black-queen']::before {
   content: '\265B';
   color: var(--black-piece-color);
+} */
+[piece='black-queen'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackQueen.png');
+  background-position: center;
 }
-[piece='white-king']::before {
+[piece='black-queen'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackQueen.png');
+  background-position: center;
+}
+/* [piece='white-king']::before {
   content: '\2654';
   color: var(--white-piece-color);
+} */
+[piece='white-king'][square-color='white'] {
+  background-image: url('../public/WhiteSquareWhiteKing.png');
+  background-position: center;
 }
-[piece='black-king']::before {
+[piece='white-king'][square-color='black'] {
+  background-image: url('../public/BlackSquareWhiteKing.png');
+  background-position: center;
+}
+/* [piece='black-king']::before {
   content: '\265A';
   color: var(--black-piece-color);
+} */
+[piece='black-king'][square-color='white'] {
+  background-image: url('../public/WhiteSquareBlackKing.png');
+  background-position: center;
 }
-[piece='white-pawn']::before {
+[piece='black-king'][square-color='black'] {
+  background-image: url('../public/BlackSquareBlackKing.png');
+  background-position: center;
+}
+/* [piece='white-pawn']::before {
   content: '\2659';
   color: var(--white-piece-color);
-}
-/* [piece='white-pawn'][square-color='white'] {
+} */
+[piece='white-pawn'][square-color='white'] {
   background-image: url('../public/WhiteSquareWhitePawn.png');
   background-position: center;
 }
 [piece='white-pawn'][square-color='black'] {
   background-image: url('../public/BlackSquareWhitePawn.png');
   background-position: center;
-} */
-[piece='black-pawn']::before {
+}
+/* [piece='black-pawn']::before {
   content: '\265F';
   color: var(--black-piece-color);
-}
-/* [piece='black-pawn'][square-color='white'] {
+} */
+[piece='black-pawn'][square-color='white'] {
   background-image: url('../public/WhiteSquareBlackPawn.png');
   background-position: center;
 }
 [piece='black-pawn'][square-color='black'] {
   background-image: url('../public/BlackSquareBlackPawn.png');
   background-position: center;
-} */
+}
 button {
   margin-left: 5px;
   border: 2px solid var(--borderColor);
@@ -181,5 +269,7 @@ button {
   font-size: larger;
 }
 .promote {
-  font-size: 40px;
+  height: 10vh;
+  width: 10vh;
+  font-size: 9vh;
 }
