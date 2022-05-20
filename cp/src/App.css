@@ -88,14 +88,15 @@
   background-color: var(--white-square-color);
 } */
 [piece=''][square-color='white'] {
-  background-image: url('../public/WhiteNoPiece.png');
+  background-image: url('../public/WhiteNoPiece.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [square-color='black'] {
   background-color: var(--black-square-color);
 } */
 [piece=''][square-color='black'] {
-  background-image: url('../public/BlackNoPiece.png');
+  background-image: url('../public/BlackNoPiece.jpg');
   background-position: center;
 }
 .board tr td {
@@ -123,144 +124,168 @@
   color: var(--white-piece-color);
 } */
 [piece='white-rook'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhiteRook.png');
+  background-image: url('../public/WhiteSquareWhiteRook.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-rook'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhiteRook.png');
+  background-image: url('../public/BlackSquareWhiteRook.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-rook']::before {
   content: '\265C';
   color: var(--black-piece-color);
 } */
 [piece='black-rook'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackRook.png');
+  background-image: url('../public/WhiteSquareBlackRook.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-rook'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackRook.png');
+  background-image: url('../public/BlackSquareBlackRook.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='white-knight']::before {
   content: '\2658';
   color: var(--white-piece-color);
 } */
 [piece='white-knight'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhiteKnight.png');
+  background-image: url('../public/WhiteSquareWhiteKnight.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-knight'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhiteKnight.png');
+  background-image: url('../public/BlackSquareWhiteKnight.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-knight']::before {
   content: '\265E';
   color: var(--black-piece-color);
 } */
 [piece='black-knight'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackKnight.png');
+  background-image: url('../public/WhiteSquareBlackKnight.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-knight'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackKnight.png');
+  background-image: url('../public/BlackSquareBlackKnight.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='white-bishop']::before {
   content: '\2657';
   color: var(--white-piece-color);
 } */
 [piece='white-bishop'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhiteBishop.png');
+  background-image: url('../public/WhiteSquareWhiteBishop.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-bishop'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhiteBishop.png');
+  background-image: url('../public/BlackSquareWhiteBishop.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-bishop']::before {
   content: '\265D';
   color: var(--black-piece-color);
 } */
 [piece='black-bishop'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackBishop.png');
+  background-image: url('../public/WhiteSquareBlackBishop.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-bishop'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackBishop.png');
+  background-image: url('../public/BlackSquareBlackBishop.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='white-queen']::before {
   content: '\2655';
   color: var(--white-piece-color);
 } */
 [piece='white-queen'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhiteQueen.png');
+  background-image: url('../public/WhiteSquareWhiteQueen.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-queen'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhiteQueen.png');
+  background-image: url('../public/BlackSquareWhiteQueen.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-queen']::before {
   content: '\265B';
   color: var(--black-piece-color);
 } */
 [piece='black-queen'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackQueen.png');
+  background-image: url('../public/WhiteSquareBlackQueen.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-queen'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackQueen.png');
+  background-image: url('../public/BlackSquareBlackQueen.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='white-king']::before {
   content: '\2654';
   color: var(--white-piece-color);
 } */
 [piece='white-king'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhiteKing.png');
+  background-image: url('../public/WhiteSquareWhiteKing.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-king'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhiteKing.png');
+  background-image: url('../public/BlackSquareWhiteKing.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-king']::before {
   content: '\265A';
   color: var(--black-piece-color);
 } */
 [piece='black-king'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackKing.png');
+  background-image: url('../public/WhiteSquareBlackKing.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-king'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackKing.png');
+  background-image: url('../public/BlackSquareBlackKing.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='white-pawn']::before {
   content: '\2659';
   color: var(--white-piece-color);
 } */
 [piece='white-pawn'][square-color='white'] {
-  background-image: url('../public/WhiteSquareWhitePawn.png');
+  background-image: url('../public/WhiteSquareWhitePawn.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='white-pawn'][square-color='black'] {
-  background-image: url('../public/BlackSquareWhitePawn.png');
+  background-image: url('../public/BlackSquareWhitePawn.jpg');
   background-position: center;
+  background-size: cover;
 }
 /* [piece='black-pawn']::before {
   content: '\265F';
   color: var(--black-piece-color);
 } */
 [piece='black-pawn'][square-color='white'] {
-  background-image: url('../public/WhiteSquareBlackPawn.png');
+  background-image: url('../public/WhiteSquareBlackPawn.jpg');
   background-position: center;
+  background-size: cover;
 }
 [piece='black-pawn'][square-color='black'] {
-  background-image: url('../public/BlackSquareBlackPawn.png');
+  background-image: url('../public/BlackSquareBlackPawn.jpg');
   background-position: center;
+  background-size: cover;
 }
 button {
   margin-left: 5px;

@@ -136,22 +136,30 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
         <h2>Pawn Promotion</h2>
         <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-rook' : 'black-rook');}}
             piece={toInfo.color === 'white' ? 'white-rook' : 'black-rook'}
-            square-color='black'
+            square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
+                (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
+                ? 'white' : 'black'}
             className='promote'
             ></button>
         <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-knight' : 'black-knight');}}
             piece={toInfo.color === 'white' ? 'white-knight' : 'black-knight'}
-            square-color='white'
+            square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
+                (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
+                ? 'white' : 'black'}
             className='promote'
             ></button>
         <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-bishop' : 'black-bishop');}}
             piece={toInfo.color === 'white' ? 'white-bishop' : 'black-bishop'}
-            square-color='black'
+            square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
+                (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
+                ? 'white' : 'black'}
             className='promote'
             ></button>
         <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-queen' : 'black-queen');}}
             piece={toInfo.color === 'white' ? 'white-queen' : 'black-queen'}
-            square-color='white'
+            square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
+                (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
+                ? 'white' : 'black'}
             className='promote'
             ></button>
     </div>
