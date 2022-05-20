@@ -1,7 +1,7 @@
 :root {
   --borderColor: chocolate;
   --white-square-color: #BBBBBB;
-  --black-square-color: green;
+  --black-square-color: black;
   --white-piece-color: white;
   --black-piece-color: black;
 }
@@ -21,7 +21,7 @@
   margin-left: 1vw;
   margin-top: 1vh;
   background-color: var(--black-square-color);
-  color: white;
+  color: var(--white-square-color);
   width: fit-content;
   padding: 2px 3px;
   text-align: left;
