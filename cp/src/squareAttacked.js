@@ -12,10 +12,11 @@ function squareAttacked(rows, whiteup, bycolor, rowIndex, columnIndex) {
     // Check for pawn attack
     let opponentPawn = bycolor + '-pawn';
     let pawnDir = bywhite ? (whiteup ? -1 : 1) : (whiteup ? 1 : -1);
-    if (inRange(rowIndex + pawnDir) && inRange(columnIndex - 1) && rows[rowIndex + pawnDir].columns[columnIndex - 1].piece === opponentPawn) {
+    let pawnFromRowIndex = rowIndex - pawnDir;
+    if (inRange(pawnFromRowIndex) && inRange(columnIndex - 1) && rows[pawnFromRowIndex].columns[columnIndex - 1].piece === opponentPawn) {
         return true;
     }
-    if (inRange(rowIndex + pawnDir) && inRange(columnIndex + 1) && rows[rowIndex + pawnDir].columns[columnIndex + 1].piece === opponentPawn) {
+    if (inRange(pawnFromRowIndex) && inRange(columnIndex + 1) && rows[pawnFromRowIndex + pawnDir].columns[columnIndex + 1].piece === opponentPawn) {
         return true;
     }
     // Check for knight attack
