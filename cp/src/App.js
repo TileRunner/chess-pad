@@ -33,7 +33,6 @@ function App() {
           rows={rows}
           setRows={setRows}
           piece={piece}
-          setPiece={setPiece}
           mode={mode}
           whiteup={whiteup}
           savedPositions={savedPositions}

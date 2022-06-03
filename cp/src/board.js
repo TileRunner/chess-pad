@@ -3,7 +3,7 @@ import validateMove from "./validate";
 import handleCastling from "./castle";
 import squareAttacked from "./squareAttacked";
 
-const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
+const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
     const [fromInfo, setFromInfo] = useState({rowIndex:-1,columnIndex:-1,piece:''});
     const [promotingPawn, setPromotingPawn] = useState(false);
     const [toInfo, setToInfo] = useState({rowIndex:-1,columnIndex:-1,color:''});
@@ -38,6 +38,11 @@ const Board = ({rows=[], setRows, piece, setPiece,mode='', whiteup=true, savedPo
         if (!moveStarted) {
             // Must click a piece to start a move. Ignore click on empty square.
             if (clickedPiece !== '') {
+                // Must click on correct colour piece
+                let tomove = savedPositions.length % 2 === 1 ? whiteup ? 'w' : 'b' : whiteup ? 'b' : 'w';
+                if (clickedPiece[0] !== tomove) {
+                    return;
+                }
                 setMoveStarted(true);
                 setFromInfo({rowIndex:rindex, columnIndex:cindex, piece:clickedPiece});
             }
