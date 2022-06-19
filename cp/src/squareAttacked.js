@@ -8,6 +8,7 @@
  * @returns {bool} Whether square is attacked
  */
 function squareAttacked(rows, whiteup, bycolor, rowIndex, columnIndex) {
+//    alert(`rowIndex=${rowIndex} columnIndex=${columnIndex}`);
     let bywhite = (bycolor === 'white');
     // Check for pawn attack
     let opponentPawn = bycolor + '-pawn';
@@ -16,7 +17,7 @@ function squareAttacked(rows, whiteup, bycolor, rowIndex, columnIndex) {
     if (inRange(pawnFromRowIndex) && inRange(columnIndex - 1) && rows[pawnFromRowIndex].columns[columnIndex - 1].piece === opponentPawn) {
         return true;
     }
-    if (inRange(pawnFromRowIndex) && inRange(columnIndex + 1) && rows[pawnFromRowIndex + pawnDir].columns[columnIndex + 1].piece === opponentPawn) {
+    if (inRange(pawnFromRowIndex) && inRange(columnIndex + 1) && rows[pawnFromRowIndex].columns[columnIndex + 1].piece === opponentPawn) {
         return true;
     }
     // Check for knight attack
