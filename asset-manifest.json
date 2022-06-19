@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/chess-pad/static/css/main.807dcd7b.css",
-    "main.js": "/chess-pad/static/js/main.ffed2107.js",
+    "main.js": "/chess-pad/static/js/main.80e8b74f.js",
     "static/js/787.48bf6126.chunk.js": "/chess-pad/static/js/787.48bf6126.chunk.js",
     "static/media/WhiteSquareWhiteQueen.jpg": "/chess-pad/static/media/WhiteSquareWhiteQueen.a3200e52e0e5112b05fe.jpg",
     "static/media/BlackSquareBlackQueen.jpg": "/chess-pad/static/media/BlackSquareBlackQueen.228917ac10e33e0907fa.jpg",
@@ -14,11 +14,11 @@
     "static/media/WhiteSquareBlackKing.jpg": "/chess-pad/static/media/WhiteSquareBlackKing.1c5c44e507a820b0386f.jpg",
     "index.html": "/chess-pad/index.html",
     "main.807dcd7b.css.map": "/chess-pad/static/css/main.807dcd7b.css.map",
-    "main.ffed2107.js.map": "/chess-pad/static/js/main.ffed2107.js.map",
+    "main.80e8b74f.js.map": "/chess-pad/static/js/main.80e8b74f.js.map",
     "787.48bf6126.chunk.js.map": "/chess-pad/static/js/787.48bf6126.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.807dcd7b.css",
-    "static/js/main.ffed2107.js"
+    "static/js/main.80e8b74f.js"
   ]
 }
