@@ -2,6 +2,7 @@ import { useState } from "react";
 import validateMove from "./validate";
 import handleCastling from "./castle";
 import squareAttacked from "./squareAttacked";
+import * as c from './constants';
 
 const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, setSavedPositions, moveStarted, setMoveStarted}) => {
     const [fromInfo, setFromInfo] = useState({rowIndex:-1,columnIndex:-1,piece:''});
@@ -41,6 +42,7 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
                 // Must click on correct colour piece
                 let tomove = savedPositions.length % 2 === 1 ? whiteup ? 'w' : 'b' : whiteup ? 'b' : 'w';
                 if (clickedPiece[0] !== tomove) {
+                    alert(`${tomove === "w" ? "White" : "Black"} to move`);
                     return;
                 }
                 setMoveStarted(true);
@@ -81,11 +83,11 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
             newrows = JSON.parse(JSON.stringify(castle.newrows));
         }
         // Detect en passant
-        else if ((fromInfo.piece === 'white-pawn' || fromInfo.piece === 'black-pawn') &&
+        else if ((fromInfo.piece === c.WHITE_PAWN || fromInfo.piece === c.BLACK_PAWN) &&
             Math.abs(fromInfo.columnIndex - cindex) === 1 &&
             Math.abs(fromInfo.rowIndex - rindex) === 1 &&
             clickedPiece === '' &&
-            rows[fromInfo.rowIndex].columns[cindex].piece === (fromInfo.piece === 'white-pawn' ? 'black-pawn' : 'white-pawn'))
+            rows[fromInfo.rowIndex].columns[cindex].piece === (fromInfo.piece === c.WHITE_PAWN ? c.BLACK_PAWN : c.WHITE_PAWN))
         {
             newrows[fromInfo.rowIndex].columns[cindex].piece = '';
             newrows[fromInfo.rowIndex].columns[fromInfo.columnIndex].piece = '';
@@ -93,7 +95,7 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
         }
         else {
             // Check validity
-            let msg = validateMove(rows, fromInfo, rindex, cindex);
+            let msg = validateMove(rows, fromInfo, rindex, cindex, whiteup);
             if (msg) {
                 alert(msg);
                 return;
@@ -104,13 +106,13 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
         // Did they move into check?
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-                if (fromInfo.piece[0] === 'w' && newrows[r].columns[c].piece === 'white-king') {
+                if (fromInfo.piece[0] === 'w' && newrows[r].columns[c].piece === c.WHITE_KING) {
                     if (squareAttacked(newrows, whiteup, 'black', r, c)) {
                         alert("You cannot move into check");
                         return;
                     }
                 }
-                if (fromInfo.piece[0] === 'b' && newrows[r].columns[c].piece === 'black-king') {
+                if (fromInfo.piece[0] === 'b' && newrows[r].columns[c].piece === c.BLACK_KING) {
                     if (squareAttacked(newrows, whiteup, 'white', r, c)) {
                         alert("You cannot move into check");
                         return;
@@ -123,7 +125,7 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
         setMoveStarted(false);
         setSavedPositions(newSavePositions);
         setRows(newrows);
-        let needToPromotePawn = (fromInfo.piece === 'white-pawn' || fromInfo.piece === 'black-pawn') && (rindex % 7 === 0);
+        let needToPromotePawn = (fromInfo.piece === c.WHITE_PAWN || fromInfo.piece === c.BLACK_PAWN) && (rindex % 7 === 0);
         if (needToPromotePawn) {
             setPromotingPawn(true);
             setToInfo({rowIndex: rindex, columnIndex: cindex, color: fromInfo.piece[0] === 'w' ? 'white' : 'black'});
@@ -139,29 +141,29 @@ const Board = ({rows=[], setRows, piece, mode='', whiteup=true, savedPositions, 
 
     const PromoteOptions =() => <div>
         <h2>Pawn Promotion</h2>
-        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-rook' : 'black-rook');}}
-            piece={toInfo.color === 'white' ? 'white-rook' : 'black-rook'}
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? c.WHITE_ROOK : c.BLACK_ROOK);}}
+            piece={toInfo.color === 'white' ? c.WHITE_ROOK : c.BLACK_ROOK}
             square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
                 (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
                 ? 'white' : 'black'}
             className='promote'
             ></button>
-        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-knight' : 'black-knight');}}
-            piece={toInfo.color === 'white' ? 'white-knight' : 'black-knight'}
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? c.WHITE_KNIGHT : c.BLACK_KNIGHT);}}
+            piece={toInfo.color === 'white' ? c.WHITE_KNIGHT : c.BLACK_KNIGHT}
             square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
                 (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
                 ? 'white' : 'black'}
             className='promote'
             ></button>
-        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-bishop' : 'black-bishop');}}
-            piece={toInfo.color === 'white' ? 'white-bishop' : 'black-bishop'}
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? c.WHITE_BISHOP : c.BLACK_BISHOP);}}
+            piece={toInfo.color === 'white' ? c.WHITE_BISHOP : c.BLACK_BISHOP}
             square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
                 (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
                 ? 'white' : 'black'}
             className='promote'
             ></button>
-        <button onClick={() => {promotePawn(toInfo.color === 'white' ? 'white-queen' : 'black-queen');}}
-            piece={toInfo.color === 'white' ? 'white-queen' : 'black-queen'}
+        <button onClick={() => {promotePawn(toInfo.color === 'white' ? c.WHITE_QUEEN : c.BLACK_QUEEN);}}
+            piece={toInfo.color === 'white' ? c.WHITE_QUEEN : c.BLACK_QUEEN}
             square-color={(toInfo.rowIndex % 2 === 0 && toInfo.columnIndex % 2 === 0) ||
                 (toInfo.rowIndex % 2 === 1 && toInfo.columnIndex % 2 === 1)
                 ? 'white' : 'black'}

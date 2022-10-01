@@ -1,27 +1,28 @@
+import * as c from './constants';
+
 /**
  * Check the validity of the chess move. En passant and castling do not call. We already checked that
- * they actually moved a piece and are not taking their own piece. Does not check for check violations.
+ * they actually moved a piece and are not taking their own piece.
  * @param {array} rows The rows of the chess board, each row contains the columns, each column specifying the piece there
  * @param {any} fromInfo The rowIndex, columnIndex, and piece relating to the piece being moved from that square
  * @param {int} rindex The row index for where they want to move to
  * @param {int} cindex The column index for where they want to move to
+ * @param {boolean} whiteup Whether white is playing up the board
  * @returns {string} An error message saying what is wrong with the move. Blank if the move is valid.
  */
-function validateMove(rows, fromInfo, rindex, cindex) {
-    if (fromInfo.piece === 'white-rook' || fromInfo.piece === 'black-rook') {
+function validateMove(rows, fromInfo, rindex, cindex, whiteup) {
+    if (fromInfo.piece === c.WHITE_ROOK || fromInfo.piece === c.BLACK_ROOK) {
         return checkRookMove(rows, fromInfo, rindex, cindex);
-    }
-    else if (fromInfo.piece === 'white-knight' || fromInfo.piece === 'black-knight') {
+    } else if (fromInfo.piece === c.WHITE_KNIGHT || fromInfo.piece === c.BLACK_KNIGHT) {
         return checkKnightMove(fromInfo, rindex, cindex);
-    }
-    else if (fromInfo.piece === 'white-bishop' || fromInfo.piece === 'black-bishop') {
+    } else if (fromInfo.piece === c.WHITE_BISHOP || fromInfo.piece === c.BLACK_BISHOP) {
         return checkBishopMove(rows, fromInfo, rindex, cindex);
-    }
-    else if (fromInfo.piece === 'white-queen' || fromInfo.piece === 'black-queen') {
+    } else if (fromInfo.piece === c.WHITE_QUEEN || fromInfo.piece === c.BLACK_QUEEN) {
         return checkQueenMove(rows, fromInfo, rindex, cindex);
-    }
-    else if (fromInfo.piece === 'white-king' || fromInfo.piece === 'black-king') {
+    } else if (fromInfo.piece === c.WHITE_KING || fromInfo.piece === c.BLACK_KING) {
         return checkKingMove(fromInfo, rindex, cindex);
+    } else if (fromInfo.piece === c.WHITE_PAWN || fromInfo.piece === c.BLACK_PAWN) {
+        return checkPawnMove(rows, fromInfo, rindex, cindex, whiteup);
     }
 }
 
@@ -110,6 +111,39 @@ function checkQueenMove(rows, fromInfo, rindex, cindex) {
 function checkKingMove(fromInfo, rindex, cindex) {
     if (Math.abs(fromInfo.rowIndex - rindex) > 1 || Math.abs(fromInfo.columnIndex - cindex) > 1) {
         return "The king moves 1 square in any direction, except when castling";
+    }
+}
+
+function checkPawnMove(rows, fromInfo, rindex, cindex, whiteup) {
+    let rowdir = fromInfo.piece === c.WHITE_PAWN ? whiteup ? -1 : 1 : whiteup ? 1 : -1;
+    let startrow = fromInfo.piece === c.WHITE_PAWN ? whiteup ? 6 : 1 : whiteup ? 1 : 6;
+    if ((fromInfo.rowIndex <= rindex && rowdir === -1) || (fromInfo.rowIndex >= rindex && rowdir === 1)) {
+        return "Pawn must advance";
+    }
+    if (fromInfo.rowIndex === startrow && rindex !== startrow + rowdir && rindex !== startrow + rowdir + rowdir) {
+        return "Pawn moved too far";
+    }
+    if (fromInfo.rowIndex !== startrow && rindex !== fromInfo.rowIndex + rowdir) {
+        return "Pawn moved too far";
+    }
+    if (fromInfo.columnIndex === cindex) {
+        // Stayed in same column, not taking a piece
+        if (rows[rindex].columns[cindex].piece !== '') {
+            return "Pawns take by adavancing one square diagonally ahead";
+        }
+        if (fromInfo.rowIndex === startrow && rindex === startrow + rowdir + rowdir && rows[startrow + rowdir].columns[cindex].piece !== '') {
+            return "Pawn cannot advance over a piece";
+        }
+    } else if (Math.abs(fromInfo.columnIndex - cindex) === 1) {
+        // Moved one column, should be taking a piece
+        if (rows[rindex].columns[cindex].piece === '') {
+            return "There is nothing there to take";
+        }
+        if (Math.abs(fromInfo.rowIndex - rindex) !== 1) {
+            return "Pawns take by adavancing one square diagonally ahead";
+        }
+    } else {
+        return "Pawns advance in the same column or take a piece one square diagonally ahead";
     }
 }
 

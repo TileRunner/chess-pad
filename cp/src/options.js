@@ -48,7 +48,11 @@ const Options = ({
                         <h1>Solve Mode</h1>
                         <p>Click the piece you want to move, then click the square you want to move it to.</p>
                         <p>To restart the puzzle, click
-                            <button onClick={() => {setRows(startPosition);}}>Return To Start Position</button>
+                            <button onClick={() => {
+                                setRows(startPosition);
+                                setSavedPositions([startPosition]);
+                                setMoveStarted(false);
+                                }}>Return To Start Position</button>
                         </p>
                         {savedPositions.length > 1 && <p>To undo the last move, click
                             <button onClick={() => {
